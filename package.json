@@ -1,7 +1,7 @@
 {
   "name": "auth-service",
   "version": "1.0.0",
-  "description":  "1DV026 - Assignment B3 - Auth Service",
+  "description": "1DV026 - Assignment B3 - Auth Service",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
@@ -17,6 +17,9 @@
   "author": "Maja Hedegärd <mh223pi@student.lnu.se>",
   "license": "MIT",
   "private": true,
+  "dependencies": {
+    "mongoose": "^5.12.3"
+  },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.2",
     "dotenv": "^8.2.0",
