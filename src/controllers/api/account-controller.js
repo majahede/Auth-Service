@@ -1,12 +1,12 @@
 /**
- * Module for the ImagesController.
+ * Module for the AccountController.
  *
  * @author Maja Hedegärd
  * @version 1.0.0
  */
-import createError from 'http-errors'
-import { User } from '../../models/user.js'
-import jwt from 'jsonwebtoken'
+// import createError from 'http-errors'
+// import { User } from '../../models/user.js'
+// import jwt from 'jsonwebtoken'
 
 /**
  * Encapsulates a controller.

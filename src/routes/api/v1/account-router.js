@@ -6,11 +6,11 @@
  */
 
 import express from 'express'
-import { UserController } from '../../../controllers/api/account-controller.js'
+import { AccountController } from '../../../controllers/api/account-controller.js'
 
 export const router = express.Router()
 
-const controller = new UserController()
+const controller = new AccountController()
 
 router.post('/register', (req, res, next) => controller.register(req, res, next))
 

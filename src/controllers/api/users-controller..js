@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 
-import createError from 'http-errors'
-import { User } from '../../models/user.js'
+// import createError from 'http-errors'
+// import { User } from '../../models/user.js'
 
 /**
  * Encapsulates a controller.
