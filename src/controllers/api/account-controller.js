@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken'
  */
 export class AccountController {
   /**
-   * Registers user to database.
+   * Registers.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -21,9 +21,27 @@ export class AccountController {
    */
   async register (req, res, next) {
     try {
-    //
+      const user = await User.insert({
+        email: req.body.email,
+        password: req.body.password,
+        permissionLevel: 1
+      })
+      res
+        .status(201)
+        .json({ id: user.id })
     } catch (error) {
-      next(error)
+      let err = error
+
+      if (err.code === 11000) {
+        // Duplicated keys.
+        err = createError(409)
+        err.innerException = error
+      } else if (error.name === 'ValidationError') {
+        // Validation error(s).
+        err = createError(400)
+        err.innerException = error
+      }
+      next(err)
     }
   }
 
@@ -42,6 +60,7 @@ export class AccountController {
         permission_level: user.permissionLevel
       }
 
+      // Create access token (JWT).
       const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
         algorithm: 'HS256',
         expiresIn: '1h'
