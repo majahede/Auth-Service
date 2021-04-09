@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 // Create a schema.
-const accountSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -15,4 +15,4 @@ const accountSchema = new mongoose.Schema({
 })
 
 // create a model using the schema.
-export const Account = mongoose.model('Account', accountSchema)
+export const User = mongoose.model('User', userSchema)
