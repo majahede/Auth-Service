@@ -6,7 +6,7 @@
  */
 
 import express from 'express'
-import { UserController } from '../../../controllers/api/user-controller.js'
+import { UserController } from '../../../controllers/api/account-controller.js'
 
 export const router = express.Router()
 
