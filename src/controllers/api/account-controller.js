@@ -53,6 +53,7 @@ export class AccountController {
    * @param {Function} next - Express next middleware function.
    */
   async login (req, res, next) {
+    const token = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64')
     try {
       const user = await User.authenticate(req.body.email, req.body.password)
       const payload = {
@@ -61,9 +62,9 @@ export class AccountController {
       }
 
       // Create access token (JWT).
-      const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      const accessToken = jwt.sign(payload, token, {
         algorithm: 'RS256',
-        expiresIn: '1h'
+        expiresIn: process.env.ACCESS_TOKEN_LIFE
       })
       res
         .status(201)
