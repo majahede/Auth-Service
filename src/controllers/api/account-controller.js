@@ -62,7 +62,7 @@ export class AccountController {
 
       // Create access token (JWT).
       const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        algorithm: 'HS256',
+        algorithm: 'RS256',
         expiresIn: '1h'
       })
       res

@@ -4,8 +4,9 @@
  * @author Maja Hedegärd
  * @version 1.0.0
  */
-
+// import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
+// import validator from 'validator'
 
 // Create a schema.
 const userSchema = new mongoose.Schema({
