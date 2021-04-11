@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 
-// import createError from 'http-errors'
-// import { User } from '../../models/user.js'
+import createError from 'http-errors'
+import { User } from '../../models/user.js'
 
 /**
  * Encapsulates a controller.
@@ -22,6 +22,19 @@ export class UsersController {
    */
   async loadUser (req, res, next, id) {
     try {
+      // Get the user.
+      const user = await User.getById(id)
+
+      // If no user found send a 404 (Not Found).
+      if (!user) {
+        next(createError(404))
+        return
+      }
+
+      // Provide the user to req.
+      req.user = user
+
+      // Next middleware.
       next()
     } catch (error) {
       next(error)
@@ -36,5 +49,6 @@ export class UsersController {
    * @param {Function} next - Express next middleware function.
    */
   async find (req, res, next) {
+    res.json(req.user)
   }
 }
