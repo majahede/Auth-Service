@@ -15,16 +15,15 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: [true, 'User email required.'],
+    required: true,
     validate: isEmail
   },
   password: {
     type: String,
-    required: [true, 'User password required.'],
+    required: true,
     minLength: 10,
     maxLength: 1000
-  },
-  permissionLevel: Number
+  }
 }, {
   timestamps: true,
   versionKey: false,
@@ -38,7 +37,7 @@ const userSchema = new mongoose.Schema({
     transform: function (doc, ret) {
       delete ret._id
     },
-    virtuals: true // ensure virtual fields are serialized
+    virtuals: true // Ensure virtual fields are serialized
   }
 })
 
@@ -63,7 +62,7 @@ userSchema.statics.authenticate = async function (email, password) {
 
   // If no user found or password is wrong, throw an error.
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw new Error('Invalid username or password.')
+    throw new Error('Invalid login attempt.')
   }
 
   // User found and password correct, return the user.
@@ -86,7 +85,6 @@ userSchema.statics.getById = async function (id) {
  * @param {object} userData - ...
  * @param {string} userData.email - ...
  * @param {string} userData.password - ...
- * @param {number} userData.permissionLevel - ...
  * @returns {Promise<User>} - ...
  */
 userSchema.statics.insert = async function (userData) {

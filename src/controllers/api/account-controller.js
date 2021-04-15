@@ -23,8 +23,7 @@ export class AccountController {
     try {
       const user = await User.insert({
         email: req.body.email,
-        password: req.body.password,
-        permissionLevel: 1
+        password: req.body.password
       })
       res
         .status(201)
@@ -35,11 +34,9 @@ export class AccountController {
       if (err.code === 11000) {
         // Duplicated keys.
         err = createError(409)
-        err.innerException = error
       } else if (error.name === 'ValidationError') {
         // Validation error(s).
         err = createError(400)
-        err.innerException = error
       }
       next(err)
     }
@@ -57,8 +54,7 @@ export class AccountController {
     try {
       const user = await User.authenticate(req.body.email, req.body.password)
       const payload = {
-        email: user.email,
-        permission_level: user.permissionLevel
+        email: user.email
       }
 
       // Create access token (JWT).
@@ -67,7 +63,7 @@ export class AccountController {
         expiresIn: process.env.ACCESS_TOKEN_LIFE
       })
       res
-        .status(201)
+        .status(200)
         .json({
           access_token: accessToken
         })

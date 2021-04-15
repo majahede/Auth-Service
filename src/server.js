@@ -12,7 +12,6 @@ const main = async () => {
   await connectDB()
 
   const app = express()
-
   // Set up a morgan logger.
   app.use(logger('dev'))
 
@@ -20,7 +19,7 @@ const main = async () => {
   app.use(helmet())
 
   // Parse requests of the content type application/json.
-  app.use(express.json({ limit: '500kb' }))
+  app.use(express.json())
 
   // register routes
   app.use('/', router)
