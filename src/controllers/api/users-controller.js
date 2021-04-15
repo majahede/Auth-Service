@@ -25,19 +25,17 @@ export class UsersController {
       // Get the user.
       const user = await User.getById(id)
 
-      // If no user found send a 404 (Not Found).
-      if (!user) {
-        next(createError(404))
-        return
-      }
-
       // Provide the user to req.
       req.user = user
 
       // Next middleware.
       next()
     } catch (error) {
-      next(error)
+      let err = error
+      if (error.kind === 'ObjectId') {
+        err = createError(404)
+      }
+      next(err)
     }
   }
 
